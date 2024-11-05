@@ -1,0 +1,71 @@
+/* ExerciseRecommendation.css */
+
+.exercise-recommendation {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f4f7fa;
+    margin-left: 250px; /* Ensure it doesn't overlap with the sidebar */
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  .bmi-input {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .bmi-input input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+  }
+  
+  .recommendations, .exercise-schedule {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .recommendations ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .recommendations ul li {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin: 10px 0;
+  }
+  
+  .exercise-schedule table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .exercise-schedule th, .exercise-schedule td {
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    text-align: center;
+  }
+  
+  .exercise-schedule th {
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  .exercise-schedule tbody tr:nth-child(odd) {
+    background-color: #ecf0f1;
+  }
+  
+  .exercise-schedule tbody tr:nth-child(even) {
+    background-color: #bdc3c7;
+  }
+  
