@@ -9,6 +9,8 @@ import ExerciseTracking from './ExerciseTracking';
 import Recipes from './Recipes';
 import ChatbotSupport from './ChatbotSupport';
 import Login from './login';
+// import SignUp from './signup';
+
 import './App.css';
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
               <Route path="/exercise-tracking" element={<ExerciseTracking />} />
               <Route path="/recipes" element={<Recipes />} />
               <Route path="/chatbot-support" element={<ChatbotSupport />} />
+              {/* <Route path="/register" element={<SignUp />} /> */}
+              
             </Routes>
           </div>
         </div>
