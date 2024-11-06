@@ -13,6 +13,16 @@ h2, h3 {
   color: #333;
 }
 
+input[type="number"] {
+  color: #333; /* Dark color for input text */
+  background-color: #fff; /* Light background to contrast with dark text */
+}
+
+input[type="number"]::placeholder {
+  color: #999; /* Placeholder color for clarity */
+}
+
+
 input[type="number"],
 select {
   width: 100%;
