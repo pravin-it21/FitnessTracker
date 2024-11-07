@@ -1,21 +1,55 @@
 /* SignUp.css */
 @import url('https://rsms.me/inter/inter-ui.css');
+
 ::selection {
   background: #2D2F36;
 }
+
 ::-webkit-selection {
   background: #2D2F36;
 }
+
 ::-moz-selection {
   background: #2D2F36;
 }
-body {
+
+.signup-page {
   background: white;
   font-family: 'Inter UI', sans-serif;
   margin: 0;
   padding: 20px;
 }
-.page {
+/* Add styles to move Submit and Already a User? Login link upwards */
+.signup-page  .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px; /* Adjust this value to move elements up or down */
+}
+
+.signup-page  #submit {
+  margin-top: 15px; /* Adjust this value to position the submit button */
+  transform: translateY(-10px); /* Optional: moves the button slightly up */
+}
+
+.signup-page  .dir-login {
+  margin-top: 10px; /* Adjust to move the login link upwards */
+  transform: translateY(-10px); /* Optional: moves the link slightly up */
+  cursor: pointer;
+}
+
+.signup-page  .dir-login p {
+  color: #eaeef3; /* Color for the login link */
+  font-size: 14px; /* Adjust size as needed */
+}
+
+.signup-page  .dir-login p:hover {
+  text-decoration: underline; /* Optional: Add hover effect */
+}
+
+
+.signup-page .page {
   background: #e2e2e5;
   display: flex;
   flex-direction: column;
@@ -24,54 +58,62 @@ body {
   place-content: center;
   width: calc(100% - 40px);
 }
+
 @media (max-width: 767px) {
-  .page {
+  .signup-page .page {
     height: auto;
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
 }
-.container {
+
+.signup-page .container {
   display: flex;
   height: 360px;
   margin: 0 auto;
   width: 640px;
   height: 425px;
 }
+
 @media (max-width: 767px) {
-  .container {
+  .signup-page .container {
     flex-direction: column;
     height: 690px;
     width: 320px;
   }
 }
-.left {
+
+.signup-page .left {
   background: white;
   height: calc(100% - 40px);
   top: 20px;
   position: relative;
   width: 50%;
 }
+
 @media (max-width: 767px) {
-  .left {
+  .signup-page .left {
     height: 100%;
     left: 20px;
     width: calc(100% - 40px);
     max-height: 320px;
   }
 }
-.login {
+
+.signup-page .login {
   font-size: 50px;
   font-weight: 900;
   margin: 50px 40px 40px;
 }
-.eula {
+
+.signup-page .eula {
   color: #999;
   font-size: 14px;
   line-height: 1.5;
   margin: 40px;
 }
-.right {
+
+.signup-page .right {
   background: #474A59;
   box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
   color: #F1F1F2;
@@ -79,19 +121,22 @@ body {
   width: 60%;
   height: 105%;
 }
+
 @media (max-width: 767px) {
-  .right {
+  .signup-page .right {
     flex-shrink: 0;
     height: 100%;
     width: 100%;
     max-height: 400px;
   }
 }
-svg {
+
+.signup-page svg {
   position: absolute;
   width: 320px;
 }
-path {
+
+.signup-page path {
   fill: none;
   stroke: url(#linearGradient);
   stroke-width: 4;
@@ -99,21 +144,21 @@ path {
   stroke-dashoffset: 0;
 }
 
-.form {
+.signup-page .form {
   margin: 40px;
   position: absolute;
   z-index: 1;
 }
 
-.dir-login {
-  color:  #c2c2c5;
+.signup-page .dir-login {
+  color: #c2c2c5;
   font-size: smaller;
   position: relative;
   top: 90px;
   left: 57px;
 }
 
-input {
+.signup-page input {
   background: transparent;
   border: 0;
   color: #f2f2f2;
@@ -124,7 +169,7 @@ input {
   width: 100%;
 }
 
-a {
+.signup-page a {
   position: absolute;
   top: 105%;
   left: 50%;
@@ -144,9 +189,10 @@ a {
   z-index: 1;
 }
 
-a:hover {
+.signup-page a:hover {
   animation: animate 8s linear infinite;
 }
+
 @keyframes animate {
   0% {
     background-position: 0%;
@@ -155,7 +201,8 @@ a:hover {
     background-position: 400%;
   }
 }
-a:before {
+
+.signup-page a:before {
   content: "";
   position: absolute;
   top: -5px;
@@ -169,7 +216,8 @@ a:before {
   opacity: 0;
   transition: 0.5%;
 }
-a:hover:before {
+
+.signup-page a:hover:before {
   filter: blur(20px);
   opacity: 1;
   animation: animate 8s linear infinite;

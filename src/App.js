@@ -1,53 +1,7 @@
-// import React, { useState } from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import Sidebar from './Sidebar';
-// import Dashboard from './Dashboard';
-// import FoodRecommendation from './FoodRecommendation';
-// import ExerciseRecommendation from './ExerciseRecommendation';
-// import ExerciseTracking from './ExerciseTracking';
-// import Recipes from './Recipes';
-// import ChatbotSupport from './ChatbotSupport';
-// import Login from './login';
-// import SignUp from './signup'; // Ensure the path is correct
-
-// import './App.css';
-
-// function App() {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-//   const handleLogin = () => {
-//     setIsAuthenticated(true);
-//   };
-
-//   return (
-//     <Router>
-//       <Routes>
-//         {isAuthenticated ? (
-//           <>
-//             <Route path="/" element={<Dashboard />} />
-//             <Route path="/food-recommendation" element={<FoodRecommendation />} />
-//             <Route path="/exercise-recommendation" element={<ExerciseRecommendation />} />
-//             <Route path="/exercise-tracking" element={<ExerciseTracking />} />
-//             <Route path="/recipes" element={<Recipes />} />
-//             <Route path="/chatbot-support" element={<ChatbotSupport />} />
-//           </>
-//         ) : (
-//           <>
-//             <Route path="/" element={<Login onLogin={handleLogin} />} />
-//             <Route path="/register" element={<SignUp />} />
-//           </>
-//         )}
-//       </Routes>
-
-//       {isAuthenticated && <Sidebar />}
-//     </Router>
-//   );
-// }
-
-// export default App;
-
+// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './AuthContext'; // Ensure correct import
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import FoodRecommendation from './FoodRecommendation';
@@ -56,57 +10,56 @@ import ExerciseTracking from './ExerciseTracking';
 import Recipes from './Recipes';
 import ChatbotSupport from './ChatbotSupport';
 import Login from './login';
-import SignUp from './signup'; // Ensure the path is correct
+import SignUp from './signup'; // Ensure correct import
 
 import './App.css';
+
+const PrivateRoute = ({ element, ...rest }) => {
+  const token = localStorage.getItem('token');
+  return token ? element : <Navigate to="/login" />;
+};
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if the token exists in localStorage to determine if the user is authenticated
     const token = localStorage.getItem('token');
     if (token) {
-      setIsAuthenticated(true); // User is authenticated
+      setIsAuthenticated(true);
     }
   }, []);
 
   const handleLogin = () => {
-    setIsAuthenticated(true); // Set as authenticated
+    setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove the token when logging out
-    setIsAuthenticated(false); // Set as not authenticated
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
   };
 
   return (
-    <Router>
-      <Routes>
-        {/* Landing page: Redirect to Dashboard if authenticated, otherwise show Login */}
-        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />} />
-        
-        {/* Protected Routes: Only accessible if authenticated */}
-        {isAuthenticated ? (
-          <>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/food-recommendation" element={<FoodRecommendation />} />
-            <Route path="/exercise-recommendation" element={<ExerciseRecommendation />} />
-            <Route path="/exercise-tracking" element={<ExerciseTracking />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/chatbot-support" element={<ChatbotSupport />} />
-          </>
-        ) : (
-          <>
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            <Route path="/register" element={<SignUp />} />
-          </>
-        )}
-      </Routes>
+    <AuthProvider>  {/* Wrap your app with AuthProvider */}
+      <Router>
+        <Routes>
+          <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login onLogin={handleLogin} />} />
+          {!isAuthenticated && (
+            <>
+              <Route path="/login" element={<Login onLogin={handleLogin} />} />
+              <Route path="/register" element={<SignUp />} />
+            </>
+          )}
+          <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
+          <Route path="/food-recommendation" element={<PrivateRoute element={<FoodRecommendation />} />} />
+          <Route path="/exercise-recommendation" element={<PrivateRoute element={<ExerciseRecommendation />} />} />
+          <Route path="/exercise-tracking" element={<PrivateRoute element={<ExerciseTracking />} />} />
+          <Route path="/recipes" element={<PrivateRoute element={<Recipes />} />} />
+          <Route path="/chatbot-support" element={<PrivateRoute element={<ChatbotSupport />} />} />
+        </Routes>
 
-      {/* Show Sidebar only if authenticated */}
-      {isAuthenticated && <Sidebar onLogout={handleLogout} />}
-    </Router>
+        {isAuthenticated && <Sidebar onLogout={handleLogout} />}
+      </Router>
+    </AuthProvider>
   );
 }
 

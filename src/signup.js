@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import anime from 'animejs';
-//import './signup.css';
+import './signup.css';
 
 function SignUp() {
   const [current, setCurrent] = useState(null);
@@ -48,31 +48,14 @@ const handleSubmit = async (e) => {
 };
 
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (current) current.pause();
-  //   setCurrent(
-  //     anime({
-  //       targets: 'path',
-  //       strokeDashoffset: {
-  //         value: -1344,
-  //         duration: 700,
-  //         easing: 'easeOutQuart',
-  //       },
-  //       strokeDasharray: {
-  //         value: '530 1386',
-  //         duration: 700,
-  //         easing: 'easeOutQuart',
-  //       },
-  //     })
-  //   );
-  // };
-
   const redirectToLogin = () => {
     window.location.href = '/login';
   };
 
+
+
   return (
+    <div className="signup-page">
     <div className="page">
       <div className="container">
         <div className="left">
@@ -93,6 +76,8 @@ const handleSubmit = async (e) => {
               d="m 40 120.0002 l 239.9998 -0.0003 c 0 0 24.9926 0.7993 25.0002 35.0002 c 0.008 34.2008 -25.0002 35 -25.0002 35 h -239.9998 c 0 -0.0205 -25 4.0135 -25 38.5 c 0 34.4865 25 38.5 25 38.5 h 242 Q 304 270 303 300 Q 304 331 286 337 H 40"
             />
           </svg>
+
+          
           <div className="form">
             <form onSubmit={handleSubmit}>
               <label htmlFor="username">Username</label>
@@ -115,6 +100,7 @@ const handleSubmit = async (e) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
