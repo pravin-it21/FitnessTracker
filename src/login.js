@@ -82,13 +82,14 @@
 
 
 // login.js
-
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import anime from 'animejs';
 import './login.css';
 
 const LoginForm = ({ onLogin }) => {
+  const navigate = useNavigate(); // Initialize navigate
+
   useEffect(() => {
     const emailInput = document.querySelector('#email');
     const passwordInput = document.querySelector('#password');
@@ -117,32 +118,31 @@ const LoginForm = ({ onLogin }) => {
     submitButton.addEventListener('focus', () => animatePath(-730));
   }, []);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onLogin();
-  // };
+  // Handle form submission and navigation after successful login
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // login.js
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const response = await fetch('http://localhost:5000/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      username: document.getElementById('email').value,
-      password: document.getElementById('password').value,
-    }),
-  });
+    // Send login request
+    const response = await fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+      }),
+    });
 
-  const data = await response.json();
-  if (response.ok) {
-    localStorage.setItem('token', data.token);
-    onLogin();
-  } else {
-    alert(data.message || 'Login failed');
-  }
-};
+    const data = await response.json();
 
+    // If login is successful
+    if (response.ok) {
+      localStorage.setItem('token', data.token); // Store token in local storage
+      onLogin(); // Trigger onLogin function to update authentication state
+      navigate('/dashboard'); // Redirect to the dashboard page
+    } else {
+      alert(data.message || 'Login failed');
+    }
+  };
 
   return (
     <div className="page">
@@ -177,11 +177,8 @@ const handleSubmit = async (e) => {
             <input type="submit" id="submit" value="Submit" />
             <label style={{ marginLeft: '30px' }}>
               New user? <a href="/register" style={{ color: '#707075' }}>Create Account</a>
-              
             </label>
           </form>
-
-         
         </div>
       </div>
     </div>
@@ -189,6 +186,3 @@ const handleSubmit = async (e) => {
 };
 
 export default LoginForm;
-
-
-
