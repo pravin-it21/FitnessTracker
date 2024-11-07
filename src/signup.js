@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import anime from 'animejs';
-import './signup.css';
+//import './signup.css';
 
 function SignUp() {
   const [current, setCurrent] = useState(null);
@@ -24,25 +24,49 @@ function SignUp() {
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (current) current.pause();
-    setCurrent(
-      anime({
-        targets: 'path',
-        strokeDashoffset: {
-          value: -1344,
-          duration: 700,
-          easing: 'easeOutQuart',
-        },
-        strokeDasharray: {
-          value: '530 1386',
-          duration: 700,
-          easing: 'easeOutQuart',
-        },
-      })
-    );
-  };
+  // signup.js
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const response = await fetch('http://localhost:5000/api/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: document.getElementById('username').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      password: document.getElementById('password').value,
+    }),
+  });
+
+  const data = await response.json();
+  if (response.ok) {
+    alert('Registration successful');
+    window.location.href = '/login';
+  } else {
+    alert(data.error || 'Registration failed');
+  }
+};
+
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (current) current.pause();
+  //   setCurrent(
+  //     anime({
+  //       targets: 'path',
+  //       strokeDashoffset: {
+  //         value: -1344,
+  //         duration: 700,
+  //         easing: 'easeOutQuart',
+  //       },
+  //       strokeDasharray: {
+  //         value: '530 1386',
+  //         duration: 700,
+  //         easing: 'easeOutQuart',
+  //       },
+  //     })
+  //   );
+  // };
 
   const redirectToLogin = () => {
     window.location.href = '/login';
